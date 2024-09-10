@@ -1,0 +1,34 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+public class WebScrap{
+
+public static void main(String[] args) {
+            try {
+                // Web sayfasının URL'sini tanımla
+                String url = "x URL";
+                
+                // Sayfayı indir
+                Document document = Jsoup.connect(url).get();
+                
+                // Fiyat bilgisini çek
+                // Burada fiyatın hangi HTML elemanında olduğunu tespit etmeniz gerekir
+                // Bu örnekte, sayfanın HTML içeriğine göre bir seçici kullandım
+                Elements priceElements = document.select(".price"); // Sınıf adı örnektir. Gerçek sınıf adı sayfada incelemelisiniz.
+                
+                if (!priceElements.isEmpty()) {
+                    // Fiyat bilgisini yazdır
+                    String price = priceElements.first().text();
+                    System.out.println("Fiyat: " + price);
+                } else {
+                    System.out.println("Fiyat bilgisi bulunamadı.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Web sayfasına erişilemedi.");
+            }
+        }
+    }
